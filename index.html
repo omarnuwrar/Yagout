@@ -12,9 +12,40 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="yagot.png">
     <link rel="apple-touch-icon" href="yagot.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet"></noscript>    <style>
+        /* Critical CSS - Load immediately */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #ffffff;
+    color: #333;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Ensure loader shows immediately */
+.loader {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #2563eb 100%) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 9999 !important;
+}
         html {
               visibility: visible;
               opacity: 1;
@@ -1431,16 +1462,25 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 شركة ياقوت الحديثة. جميع الحقوق محفوظة</p>
+            <p>&copy; 2025 شركة ياقوت الحديثة. جميع الحقوق محفوظة</p>
         </div>
     </footer>
 
     <script>
-        // Loader - Fixed for first load
+        // Loader - Fixed for first load with font loading detection
         document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                document.getElementById('loader').classList.add('hidden');
-            }, 800);
+            // Wait for fonts to load
+            if (document.fonts) {
+                document.fonts.ready.then(function() {
+                    setTimeout(function() {
+                        document.getElementById('loader').classList.add('hidden');
+                    }, 500);
+                });
+            } else {
+                setTimeout(function() {
+                    document.getElementById('loader').classList.add('hidden');
+                }, 1200);
+            }
         });
 
         window.addEventListener('load', function() {
