@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>شركة ياقوت الحديثة - استيراد الأجهزة والمواد الكهربائية</title>
+    <!-- Preconnect for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="yagot.png">
@@ -11,6 +15,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
+        html {
+              visibility: visible;
+              opacity: 1;
+          }
         * {
             margin: 0;
             padding: 0;
@@ -18,6 +26,8 @@
         }
 
         body {
+            visibility: visible !important;
+            opacity: 1 !important;
             font-family: 'Cairo', sans-serif;
             background: #ffffff;
             color: #333;
@@ -1426,11 +1436,15 @@
     </footer>
 
     <script>
-        // Loader
-        window.addEventListener('load', function() {
+        // Loader - Fixed for first load
+        document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
                 document.getElementById('loader').classList.add('hidden');
-            }, 1500);
+            }, 800);
+        });
+
+        window.addEventListener('load', function() {
+            document.getElementById('loader').classList.add('hidden');
         });
 
         // Mobile Menu Toggle
@@ -1648,6 +1662,9 @@
 
         // Call reveal on scroll
         window.addEventListener('scroll', reveal);
+
+        // Trigger reveal on DOMContentLoaded for faster initial display
+        document.addEventListener('DOMContentLoaded', reveal);
 
         // Console message
         console.log('%c شركة ياقوت الحديثة ', 'background: #2b6cb0; color: white; font-size: 20px; padding: 10px;');
