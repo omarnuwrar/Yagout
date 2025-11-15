@@ -1570,14 +1570,24 @@
             statsObserver.observe(statsSection);
         }
 
-        // Add loading effect to images
+        // Fixed: Add loading effect to images (with cache handling)
         document.querySelectorAll('img').forEach(img => {
-            img.style.opacity = '0';
             img.style.transition = 'opacity 0.5s ease';
 
-            img.addEventListener('load', function() {
-                this.style.opacity = '1';
-            });
+            // Check if image is already loaded (cached)
+            if (img.complete && img.naturalHeight !== 0) {
+                img.style.opacity = '1';
+            } else {
+                img.style.opacity = '0';
+                img.addEventListener('load', function() {
+                    this.style.opacity = '1';
+                });
+
+                // Fallback: show image after 2 seconds
+                setTimeout(() => {
+                    img.style.opacity = '1';
+                }, 2000);
+            }
         });
 
         // Add active class to current nav item
@@ -1607,6 +1617,7 @@
             img.addEventListener('error', function() {
                 this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23f0f0f0" width="400" height="300"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3Eالصورة غير متوفرة%3C/text%3E%3C/svg%3E';
                 this.style.objectFit = 'contain';
+                this.style.opacity = '1';
             });
         });
 
